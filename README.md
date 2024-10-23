@@ -26,19 +26,22 @@ here is my personalized bioinformatic workflow starting from short reads from SR
 This repository provides a comprehensive guide and scripts to help myself to keep track of my bioinformatic workflow and organize my scripts.
 in this guide, I'm going to explain my code line by line and try to maximize my clean coding skills.
 
+---
+
+
 # 📑 Table of Contents
 
-- [Batch Job Script Header](#batch-job-script-header)
-- [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
-- [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
-- [PART-Two: Fastq-dump](#part-two-fastq-dump)
-- [PART-Three: Quality Control](#part-three-quality-control)
-- [PART-Four: Trimmomatic](#part-four-trimmomatic)
-- [PART-Five: Second Quality Control](#part-five-second-quality-control)
-- [PART-Six: Assembly Using Spades](#part-six-assembly-using-spades)
+- #️⃣ [Batch Job Script Header](#batch-job-script-header)
+- 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
+- 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
+- 🔨 [PART-Two: Fastq-dump](#part-two-fastq-dump)
+- 🔍 [PART-Three: Quality Control](#part-three-quality-control)
+- ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
+- 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
+- 🧬 [PART-Six: Assembly Using Spades](#part-six-assembly-using-spades)
 
 
-## CARC Batch job script header
+## #️⃣ CARC Batch job script header
 ---
 ```
 #!/bin/bash
@@ -51,9 +54,9 @@ in this guide, I'm going to explain my code line by line and try to maximize my 
 #SBATCH --array=1-2
 ```
 
-## Inputs and Array Prerequisites
+## 📥 Inputs and Array Prerequisites
 ### inputs
-in this part you get two arguments, first is the input file(example provided in this repository job_input_short.txt) and the output argument is the directory you chosed to save all results
+in this part you get two arguments, first is the input file(example provided in this repository `job_input_short.txt`) and the output argument is the directory you chosed to save all results
 ```
 # this is the file contains all the SRR names, srr names should be diveded by a newline(enter)
 srr_input=$1
@@ -72,7 +75,7 @@ echo "this is job ${SLURM_ARRAY_TASK_ID}"
 line=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $srr_input)
 ```
 
-## PART-One: Download the SRA files
+## 🌐 PART-One: Download the SRA files
 ### load needed modules
 ```
 module purge
@@ -91,7 +94,7 @@ mkdir -p $output_directory/00_raw_read_from_SRA
 prefetch -p ${line} -O $output_directory/00_raw_read_from_SRA
 ```
 
-## PART-Two: Fastq-dump
+## 🔨 PART-Two: Fastq-dump
 ### make a directory for fastq_dump
 ```
 mkdir -p $output_directory/01_fastq_dump_result
@@ -101,7 +104,7 @@ mkdir -p $output_directory/01_fastq_dump_result
 fastq-dump --split-3 -O $output_directory/01_fastq_dump_result/${line}/ $output_directory/00_raw_read_from_SRA/${line}/*.sra
 ```
 
-## PART-Three: Quality Control
+## 🔍 PART-Three: Quality Control
 ### load needed modules
 ```
 module load gcc/11.3.0
@@ -118,7 +121,7 @@ mkdir -p $output_directory/02_first_quality_control_results/${line}/
 fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/02_first_quality_control_results/${line}/  $output_directory/01_fastq_dump_result/${line}/*.fastq
 ```
 
-## PART-Four: Trimmomatic
+## ✂️ PART-Four: Trimmomatic
 ### first load the required modules
 ```
 module load gcc/11.3.0
@@ -136,19 +139,18 @@ mkdir -p $output_directory/03_trimmomatic_results/${line}/
 ```
 
 ### run trimmomatic
-here in this code the most important variables to change is LEADING:x TRAILING:x SLIDINGWINDOW:x:xx MINLEN:xx
+here in this code the most important variables to change is `LEADING:x`, `TRAILING:x`, `SLIDINGWINDOW:x:xx` and `MINLEN:xx`
 you should spend sometime to adjust variables above depending to your input
 ```
 trimmomatic PE -threads $SLURM_CPUS_PER_TASK -phred33 -trimlog $output_directory/03_trimmomatic_results/${line}/trimlog.log $output_directory/01_fastq_dump_result/${line}/*.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_UNPAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_UNPAIRED_R2.fastq LEADING:20 TRAILING:20 SLIDINGWINDOW:13:20 MINLEN:40
 ```
 
-## PART-Five: Second Quality Control
+## 🔍 PART-Five: Second Quality Control
 ### load needed modules
 ```
 module load gcc/11.3.0
 module load fastqc/0.11.9
 ```
-
 
 ### make a directory to save Quality Control results
 ```
@@ -159,7 +161,7 @@ mkdir -p $output_directory/04_second_quality_control_results/${line}/
 fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/04_second_quality_control_results/${line}/  $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq
 ```
 
-## PART-Six: Assembely using Spades
+## 🧬 PART-Six: Assembely using Spades
 ### module load
 ```
 module load gcc/8.3.0
@@ -172,7 +174,7 @@ mkdir -p $output_directory/05_Spades_results/${line}
 ```
 
 ## run Spades
-here in this code the most important variables to change is --cov-cutoff auto
+here in this code the most important variables to change is `--cov-cutoff auto`
 you should spend sometime to adjust variables above depending on input
 ```
 spades.py --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --cov-cutoff auto --pe1-1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq --pe1-2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq --s1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_UNPAIRED_R1.fastq --s2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_UNPAIRED_R2.fastq -o $output_directory/05_Spades_results/${line}/
