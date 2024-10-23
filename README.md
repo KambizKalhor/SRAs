@@ -24,8 +24,20 @@ here is my personalized bioinformatic workflow starting from short reads from SR
 ![Static Badge](https://img.shields.io/badge/mysql-%23F27A5E?style=for-the-badge&logo=mysql&logoColor=black&labelColor=%23FFE4C4)
 
 This repository provides a comprehensive guide and scripts to help myself to keep track of my bioinformatic workflow and organize my scripts.
+in this guide, I'm going to explain my code line by line and try to maximize my clean coding skills.
 
-# batch job script header
+# TABLE OF CONTENT
+batch job script header
+inputs and array prerequisits
+PART-One: Download the SRA files
+PART-Two: Fastq-dump
+PART-Three: Quality Control
+PART-Four: Trimmomatic
+PART-Five: Second Quality Control
+PART-Six: Assembely using Spades
+
+
+## batch job script header
 ```
 
 #!/bin/bash
@@ -62,7 +74,7 @@ echo "this is job ${SLURM_ARRAY_TASK_ID}"
 line=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $srr_input)
 ```
 
-# PART-one: download the SRA files
+# PART-One: Download the SRA files
 ## load needed modules
 ```
 module purge
@@ -80,14 +92,14 @@ mkdir -p $output_directory/00_raw_read_from_SRA
 ```
 prefetch -p ${line} -O $output_directory/00_raw_read_from_SRA
 ```
-# PART-two: fastq-dump
+# PART-Two: Fastq-dump
 ## make a directory for fastq_dump
 ```
 mkdir -p $output_directory/01_fastq_dump_result
 fastq-dump --split-3 -O $output_directory/01_fastq_dump_result/${line}/ $output_directory/00_raw_read_from_SRA/${line}/*.sra
 ```
 
-# PART-three: Quality Control
+# PART-Three: Quality Control
 ## load needed modules
 ```
 module load gcc/11.3.0
@@ -106,7 +118,7 @@ mkdir -p $output_directory/02_first_quality_control_results/${line}/
 fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/02_first_quality_control_results/${line}/  $output_directory/01_fastq_dump_result/${line}/*.fastq
 ```
 
-# PART-Four
+# PART-Four: Trimmomatic
 ## running trimmomatic
 ### first load the required modules
 ```
@@ -149,7 +161,7 @@ mkdir -p $output_directory/04_second_quality_control_results/${line}/
 fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/04_second_quality_control_results/${line}/  $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq
 ```
 
-# PART-Six: assembely using Spades
+# PART-Six: Assembely using Spades
 ## module load
 ```
 module load gcc/8.3.0
