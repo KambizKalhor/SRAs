@@ -26,15 +26,16 @@ here is my personalized bioinformatic workflow starting from short reads from SR
 This repository provides a comprehensive guide and scripts to help myself to keep track of my bioinformatic workflow and organize my scripts.
 in this guide, I'm going to explain my code line by line and try to maximize my clean coding skills.
 
-# TABLE OF CONTENT
-batch job script header
-inputs and array prerequisits
-PART-One: Download the SRA files
-PART-Two: Fastq-dump
-PART-Three: Quality Control
-PART-Four: Trimmomatic
-PART-Five: Second Quality Control
-PART-Six: Assembely using Spades
+# 📑 Table of Contents
+
+- [Batch Job Script Header](#batch-job-script-header)
+- [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
+- [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
+- [PART-Two: Fastq-dump](#part-two-fastq-dump)
+- [PART-Three: Quality Control](#part-three-quality-control)
+- [PART-Four: Trimmomatic](#part-four-trimmomatic)
+- [PART-Five: Second Quality Control](#part-five-second-quality-control)
+- [PART-Six: Assembly Using Spades](#part-six-assembly-using-spades)
 
 
 ## batch job script header
