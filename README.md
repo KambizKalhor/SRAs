@@ -187,7 +187,7 @@ mkdir -p $output_directory/06_metaQuast_results/${line}
 ```
 ### run metaQuast
 ```
-metaQuast/quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
+quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
 ```
 
 
