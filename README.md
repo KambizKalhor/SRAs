@@ -39,7 +39,7 @@ in this guide, I'm going to explain my code line by line and try to maximize my 
 - ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
 - 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
 - 🧬 [PART-Six: Assembly Using Spades](#part-six-assembly-using-spades)
-
+- 📝 [PART-Seven: metaQuast]()
 
 ## #️⃣ CARC Batch job script header
 ---
@@ -177,10 +177,18 @@ mkdir -p $output_directory/05_Spades_results/${line}
 here in this code the most important variables to change is `--cov-cutoff auto`
 you should spend sometime to adjust variables above depending on input
 ```
-spades.py --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --cov-cutoff auto --pe1-1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq --pe1-2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq --s1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_UNPAIRED_R1.fastq --s2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_UNPAIRED_R2.fastq -o $output_directory/05_Spades_results/${line}/
+spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --pe1-1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq --pe1-2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq -o $output_directory/05_Spades_results/${line}/
 ```
 
-
+## 📝 PART-Seven: metaQuast
+### make a directory for results
+```
+mkdir -p $output_directory/06_metaQuast_results/${line}
+```
+### run metaQuast
+```
+metaQuast/quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
+```
 
 
 
