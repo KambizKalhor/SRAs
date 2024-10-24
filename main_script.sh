@@ -1,3 +1,4 @@
+cat main_script.sh
 #!/bin/bash
 #SBATCH --account=asteen_1130
 #SBATCH --partition=main
@@ -133,13 +134,12 @@ mkdir -p $output_directory/05_Spades_results/${line}
 #### here in this code the most important variables to change is --cov-cutoff auto
 #### you should spend sometime to adjust variables above depending on input
 spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --pe1-1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq --pe1-2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq -o $output_directory/05_Spades_results/${line}/
-#############################
 
 
 
-# PART-Seven: metaQuast
+
+## PART-Seven: metaQuast
 ### make a directory for results
 mkdir -p $output_directory/06_metaQuast_results/${line}
-### run metaQuast
-metaQuast/quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
-#############################
+#### run metaQuast
+quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
