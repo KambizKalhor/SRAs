@@ -31,7 +31,7 @@ Table of contents
 =================
 
 <!--ts-->
-   * [the test part](#test one)
+   * [the test part](#test-one)
    * #️⃣ [Batch Job Script Header](#batch-job-script-header)
    * 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
    * 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
