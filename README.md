@@ -31,7 +31,7 @@ Table of contents
 =================
 
 <!--ts-->
-   * [the test part](#tests)
+   * [the test part](#test one)
    * #️⃣ [Batch Job Script Header](#batch-job-script-header)
    * 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
    * 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
@@ -168,7 +168,7 @@ mkdir -p $output_directory/04_second_quality_control_results/${line}/
 fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/04_second_quality_control_results/${line}/  $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq
 ```
 
-## 🧬 PART-Six: Assembely using Spades
+ 🧬 PART-Six: Assembely using Spades
 =====
 ### module load
 ```
@@ -188,7 +188,7 @@ you should spend sometime to adjust variables above depending on input
 spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --pe1-1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq --pe1-2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq -o $output_directory/05_Spades_results/${line}/
 ```
 
-## 📝 PART-Seven: metaQuast
+ 📝 PART-Seven: metaQuast
 =====
 ### make a directory for results
 ```
@@ -199,6 +199,6 @@ mkdir -p $output_directory/06_metaQuast_results/${line}
 quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
 ```
 
-Tests
+Test one
 =====
 
