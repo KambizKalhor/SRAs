@@ -34,7 +34,7 @@ Table of contents
    * [the test part](#test-one)
    * #️⃣ [Batch Job Script Header](#batch-job-script-header)
    * 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
-   * [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
+   * 📥 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
    * 🔨 [PART-Two: Fastq-dump](#part-two-fastq-dump)
    * 🔍 [PART-Three: Quality Control](#part-three-quality-control)
    * ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
@@ -82,7 +82,9 @@ echo "this is job ${SLURM_ARRAY_TASK_ID}"
 line=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $srr_input)
 ```
 
-## 🌐 [PART-One: Download the SRA files](#part-one-download-the-sra-files)
+🌐[PART-One: Download the SRA files](#part-one-download-the-sra-files)
+=====
+
 ### load needed modules
 ```
 module purge
