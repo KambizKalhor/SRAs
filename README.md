@@ -27,6 +27,28 @@ This repository provides a comprehensive guide and scripts to help myself to kee
 in this guide, I'm going to explain my code line by line and try to maximize my clean coding skills.
 
 ---
+Table of contents
+=================
+
+<!--ts-->
+   * [Installation](#installation)
+   * [Usage](#usage)
+      * [STDIN](#stdin)
+      * [Local files](#local-files)
+      * [Remote files](#remote-files)
+      * [Multiple files](#multiple-files)
+      * [Combo](#combo)
+      * [Auto insert and update TOC](#auto-insert-and-update-toc)
+      * [GitHub token](#github-token)
+      * [TOC generation with Github Actions](#toc-generation-with-github-actions)
+   * [Tests](#tests)
+   * [Dependency](#dependency)
+   * [Docker](#docker)
+     * [Local](#local)
+     * [Public](#public)
+<!--te-->
+
+
 
 
 # 📑 Table of Contents
@@ -75,7 +97,7 @@ echo "this is job ${SLURM_ARRAY_TASK_ID}"
 line=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $srr_input)
 ```
 
-## 🌐 PART-One: Download the SRA files
+## 🌐 [PART-One: Download the SRA files](#part-one-download-the-sra-files)
 ### load needed modules
 ```
 module purge
@@ -190,5 +212,6 @@ mkdir -p $output_directory/06_metaQuast_results/${line}
 quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
 ```
 
-
+Tests
+=====
 
