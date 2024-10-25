@@ -39,8 +39,8 @@ Table of contents
    * 🔍 [PART-Three: Quality Control](#part-three-quality-control)
    * ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
-   * 🧬 [PART-Six: Assembly Using Spades](#PART-Six: Assembely using Spades)
-   * 📝 [PART-Seven: metaQuast](## 📝 PART-Seven: metaQuast)
+   * [ 🧬 PART-Six: Assembly Using Spades](#PART-Six: Assembely using Spades)
+   * [ 📝 PART-Seven: metaQuast](## 📝 PART-Seven: metaQuast)
 <!--te-->
 
 
