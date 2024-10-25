@@ -31,37 +31,22 @@ Table of contents
 =================
 
 <!--ts-->
-   * [Installation](#installation)
-   * [Usage](#usage)
-      * [STDIN](#stdin)
-      * [Local files](#local-files)
-      * [Remote files](#remote-files)
-      * [Multiple files](#multiple-files)
-      * [Combo](#combo)
-      * [Auto insert and update TOC](#auto-insert-and-update-toc)
-      * [GitHub token](#github-token)
-      * [TOC generation with Github Actions](#toc-generation-with-github-actions)
-   * [Tests](#tests)
-   * [Dependency](#dependency)
-   * [Docker](#docker)
-     * [Local](#local)
-     * [Public](#public)
+   * [the test part](#tests)
+   * #️⃣ [Batch Job Script Header](#batch-job-script-header)
+   * 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
+   * 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
+   * 🔨 [PART-Two: Fastq-dump](#part-two-fastq-dump)
+   * 🔍 [PART-Three: Quality Control](#part-three-quality-control)
+   * ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
+   * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
+   * 🧬 [PART-Six: Assembly Using Spades](#PART-Six: Assembely using Spades)
+   * 📝 [PART-Seven: metaQuast](## 📝 PART-Seven: metaQuast)
 <!--te-->
 
 
 
 
-# 📑 Table of Contents
 
-- #️⃣ [Batch Job Script Header](#batch-job-script-header)
-- 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
-- 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
-- 🔨 [PART-Two: Fastq-dump](#part-two-fastq-dump)
-- 🔍 [PART-Three: Quality Control](#part-three-quality-control)
-- ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
-- 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
-- 🧬 [PART-Six: Assembly Using Spades](#part-six-assembly-using-spades)
-- 📝 [PART-Seven: metaQuast]()
 
 ## #️⃣ CARC Batch job script header
 ---
@@ -184,6 +169,7 @@ fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/04_second_quality_control_r
 ```
 
 ## 🧬 PART-Six: Assembely using Spades
+=====
 ### module load
 ```
 module load gcc/8.3.0
@@ -203,6 +189,7 @@ spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --p
 ```
 
 ## 📝 PART-Seven: metaQuast
+=====
 ### make a directory for results
 ```
 mkdir -p $output_directory/06_metaQuast_results/${line}
