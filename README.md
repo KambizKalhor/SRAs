@@ -36,7 +36,7 @@ Table of contents
    * 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
    * 🔨 [PART-Two: Fastq-dump](#part-two-fastq-dump)
    * 🔍 [PART-Three: Quality Control](#part-three-quality-control)
-   * ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
+   * :scissors: [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
    * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
    * 📝 [PART-Seven: metaQuast](#part-seven-metaQuast)
@@ -131,7 +131,7 @@ mkdir -p $output_directory/02_first_quality_control_results/${line}/
 fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/02_first_quality_control_results/${line}/  $output_directory/01_fastq_dump_result/${line}/*.fastq
 ```
 
-✂️[PART-Four: Trimmomatic](#part-four-trimmomatic)
+:scissors: [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
 ====
 ### first load the required modules
 ```
