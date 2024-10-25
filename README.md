@@ -31,16 +31,15 @@ Table of contents
 =================
 
 <!--ts-->
-   * [the test part](#test-one)
    * #️⃣ [Batch Job Script Header](#batch-job-script-header)
    * 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
-   * 📥 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
+   * 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
    * 🔨 [PART-Two: Fastq-dump](#part-two-fastq-dump)
    * 🔍 [PART-Three: Quality Control](#part-three-quality-control)
    * ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
-   * [ 🧬 PART-Six: Assembly Using Spades](#PART-Six: Assembely using Spades)
-   * [ 📝 PART-Seven: metaQuast](## 📝 PART-Seven: metaQuast)
+   * 🧬 [PART-Six: Assembly Using Spades](#PART-Six: Assembely using Spades)
+   * 📝 [PART-Seven: metaQuast](## 📝 PART-Seven: metaQuast)
 <!--te-->
 
 
@@ -61,7 +60,8 @@ Table of contents
 #SBATCH --array=1-2
 ```
 
-## 📥 Inputs and Array Prerequisites
+📥[Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
+=====
 ### inputs
 in this part you get two arguments, first is the input file(example provided in this repository `job_input_short.txt`) and the output argument is the directory you chosed to save all results
 ```
