@@ -45,7 +45,7 @@ Table of contents
 
 
 
-:hash:[Batch Job Script Header](#batch-job-script-header)
+:hash: [Batch Job Script Header](#batch-job-script-header)
 ====
 
 ```
