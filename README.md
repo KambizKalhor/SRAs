@@ -37,8 +37,6 @@ Table of contents
    * 🔨 [PART-Two: Fastq-dump](#part-two-fastq-dump)
    * 🔍 [PART-Three: Quality Control](#part-three-quality-control)
    * ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
-   * ✂️ [PART-Four: Trimmomatic](#%EF%BB%8F-part-four-trimmomatic)
-   * ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
    * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
    * 📝 [PART-Seven: metaQuast](#part-seven-metaQuast)
