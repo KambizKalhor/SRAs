@@ -82,7 +82,7 @@ echo "this is job ${SLURM_ARRAY_TASK_ID}"
 line=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $srr_input)
 ```
 
-🌐 [PART-One: Download the SRA files](#part-one-download-the-sra-files)
+🌐[PART-One: Download the SRA files](#part-one-download-the-sra-files)
 =====
 
 ### load needed modules
