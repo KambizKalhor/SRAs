@@ -31,7 +31,7 @@ Table of contents
 =================
 
 <!--ts-->
-   * #️⃣ [Batch Job Script Header](#batch-job-script-header)
+   * :hash: [Batch Job Script Header](#batch-job-script-header)
    * 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
    * 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
    * 🔨 [PART-Two: Fastq-dump](#part-two-fastq-dump)
@@ -43,11 +43,9 @@ Table of contents
 <!--te-->
 
 
-:fish:
 
 
-
-#️⃣[Batch Job Script Header](#batch-job-script-header)
+:hash:[Batch Job Script Header](#batch-job-script-header)
 ====
 
 ```
