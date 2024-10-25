@@ -38,8 +38,8 @@ Table of contents
    * 🔍 [PART-Three: Quality Control](#part-three-quality-control)
    * ✂️ [PART-Four: Trimmomatic](#part-four-trimmomatic)
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
-   * 🧬 [PART-Six: Assembly Using Spades](#PART-Six: Assembely using Spades)
-   * 📝 [PART-Seven: metaQuast](## 📝 PART-Seven: metaQuast)
+   * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
+   * 📝 [PART-Seven: metaQuast](#part-seven-metaQuast)
 <!--te-->
 
 
@@ -47,8 +47,8 @@ Table of contents
 
 
 
-## #️⃣ CARC Batch job script header
----
+#️⃣[Batch Job Script Header](#batch-job-script-header)
+====
 ```
 #!/bin/bash
 #SBATCH --account=asteen_1130
@@ -82,7 +82,7 @@ echo "this is job ${SLURM_ARRAY_TASK_ID}"
 line=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $srr_input)
 ```
 
-🌐[PART-One: Download the SRA files](#part-one-download-the-sra-files)
+🌐[PART-One: Download the SRA Files](#part-one-download-the-sra-files)
 =====
 
 ### load needed modules
@@ -103,7 +103,8 @@ mkdir -p $output_directory/00_raw_read_from_SRA
 prefetch -p ${line} -O $output_directory/00_raw_read_from_SRA
 ```
 
-## 🔨 PART-Two: Fastq-dump
+🔨[PART-Two: Fastq-dump](#part-two-fastq-dump)
+====
 ### make a directory for fastq_dump
 ```
 mkdir -p $output_directory/01_fastq_dump_result
@@ -113,7 +114,8 @@ mkdir -p $output_directory/01_fastq_dump_result
 fastq-dump --split-3 -O $output_directory/01_fastq_dump_result/${line}/ $output_directory/00_raw_read_from_SRA/${line}/*.sra
 ```
 
-## 🔍 PART-Three: Quality Control
+🔍[PART-Three: Quality Control](#part-three-quality-control)
+====
 ### load needed modules
 ```
 module load gcc/11.3.0
@@ -130,7 +132,8 @@ mkdir -p $output_directory/02_first_quality_control_results/${line}/
 fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/02_first_quality_control_results/${line}/  $output_directory/01_fastq_dump_result/${line}/*.fastq
 ```
 
-## ✂️ PART-Four: Trimmomatic
+✂️[PART-Four: Trimmomatic](#part-four-trimmomatic)
+====
 ### first load the required modules
 ```
 module load gcc/11.3.0
@@ -154,7 +157,8 @@ you should spend sometime to adjust variables above depending to your input
 trimmomatic PE -threads $SLURM_CPUS_PER_TASK -phred33 -trimlog $output_directory/03_trimmomatic_results/${line}/trimlog.log $output_directory/01_fastq_dump_result/${line}/*.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_UNPAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_UNPAIRED_R2.fastq LEADING:20 TRAILING:20 SLIDINGWINDOW:13:20 MINLEN:40
 ```
 
-## 🔍 PART-Five: Second Quality Control
+🔍[PART-Five: Second Quality Control](#part-five-second-quality-control)
+====
 ### load needed modules
 ```
 module load gcc/11.3.0
@@ -170,8 +174,8 @@ mkdir -p $output_directory/04_second_quality_control_results/${line}/
 fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/04_second_quality_control_results/${line}/  $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq
 ```
 
- 🧬 PART-Six: Assembely using Spades
-=====
+🧬[PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
+====
 ### module load
 ```
 module load gcc/8.3.0
@@ -183,15 +187,15 @@ module load spades/3.13.0
 mkdir -p $output_directory/05_Spades_results/${line}
 ```
 
-## run Spades
-here in this code the most important variables to change is `--cov-cutoff auto`
+## run metaSPAdes
+here in this code the most srtdarsdrs
 you should spend sometime to adjust variables above depending on input
 ```
 spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --pe1-1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq --pe1-2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq -o $output_directory/05_Spades_results/${line}/
 ```
 
- 📝 PART-Seven: metaQuast
-=====
+📝[PART-Seven: metaQuast](#part-seven-metaQuast)
+====
 ### make a directory for results
 ```
 mkdir -p $output_directory/06_metaQuast_results/${line}
