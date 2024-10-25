@@ -31,7 +31,7 @@ Table of contents
 =================
 
 <!--ts-->
-   * [the test part](#test one)
+   * [the test part](#test-one)
    * #️⃣ [Batch Job Script Header](#batch-job-script-header)
    * 📥 [Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
    * 🌐 [PART-One: Download the SRA Files](#part-one-download-the-sra-files)
@@ -199,6 +199,6 @@ mkdir -p $output_directory/06_metaQuast_results/${line}
 quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
 ```
 
-Test one
+Test-one
 =====
 
