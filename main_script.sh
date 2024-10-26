@@ -139,6 +139,10 @@ spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --p
 
 
 ## PART-Seven: metaQuast
+### download the Quast
+wget https://versaweb.dl.sourceforge.net/project/quast/quast-5.2.0.tar.gz
+tar -xzf quast-5.2.0.tar.gz
+
 ### make a directory for results
 mkdir -p $output_directory/06_metaQuast_results/${line}
 #### run metaQuast
