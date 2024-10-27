@@ -1,4 +1,3 @@
-cat main_script.sh
 #!/bin/bash
 #SBATCH --account=asteen_1130
 #SBATCH --partition=main
