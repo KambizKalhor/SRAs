@@ -41,8 +41,8 @@ Table of contents
    * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
    * [PART-Seven: metaQuast](#part-seven-metaQuast)
    * [PART-Eight: bwa](#part-eight-bwa)
-   * [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
-   * [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
+   * [PART-Nine: samtools](#part-nine-samtools)
+   * [PART-Ten: pilon](#part-ten-pilon)
 <!--te-->
 
 
@@ -206,7 +206,7 @@ metaQuast/quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/s
 
 
 
-:eight_pointed_black_star: [PART-Eight: bwa](#part-eight-bwa)
+[PART-Eight: bwa](#part-eight-bwa)
 ====
 
 # load modules
@@ -242,7 +242,7 @@ bwa sampe $scaffold_fasta_path $R1_sai_path $R2_sai_path $R1_path $R2_path > $ou
 
 
 
-PART-Nine: samtools
+[PART-Nine: samtools](#part-nine-samtools)
 ====
 
 # load modules
@@ -266,7 +266,7 @@ samtools sort $output_directory/07_bwa/${line}/R1_R2.bam -o $output_directory/07
 samtools index $output_directory/07_bwa/${line}/R1_R2.sorted.bam
 
 
-PART-Ten: pilon
+[PART-Ten: pilon](#part-ten-pilon)
 ====
 
 # load modules
