@@ -39,7 +39,7 @@ Table of contents
    * :scissors: [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
    * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
-   * [PART-Seven: metaQuast](#part-seven-metaQuast)
+   * :mega: [PART-Seven: metaQuast](#mega-seven-metaQuast)
    * :calling: [PART-Eight: bwa](#calling-part-eight-bwa)
    * :wrench: [PART-Nine: samtools](#wrench-part-nine-samtools)
    * :money_with_wings: [PART-Ten: pilon](#money_with_wings-part-ten-pilon)
@@ -196,7 +196,7 @@ you should spend sometime to adjust variables above depending on input
 spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --pe1-1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq --pe1-2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq -o $output_directory/05_Spades_results/${line}/
 ```
 
-[PART-Seven: metaQuast](#part-seven-metaQuast)
+:mega: [PART-Seven: metaQuast](#part-seven-metaQuast)
 ====
 
 ### make a directory for results
