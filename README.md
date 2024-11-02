@@ -41,7 +41,7 @@ Table of contents
    * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
    * [PART-Seven: metaQuast](#part-seven-metaQuast)
    * [PART-Eight: bwa](#part-eight-bwa)
-   * [PART-Nine: samtools](#part-nine-samtools)
+   * :wrench: [PART-Nine: samtools](#part-nine-samtools)
    * :money_with_wings: [PART-Ten: pilon](#money_with_wings-part-ten-pilon)
 <!--te-->
 
@@ -253,7 +253,7 @@ R2_sai_path=$output_directory/07_bwa/${line}/R2.sai
 bwa sampe $scaffold_fasta_path $R1_sai_path $R2_sai_path $R1_path $R2_path > $output_directory/07_bwa/${line}/combined_R1_R2.sam
 ```
 
-[PART-Nine: samtools](#part-nine-samtools)
+:wrench: [PART-Nine: samtools](#part-nine-samtools)
 ====
 
 ### load modules
