@@ -42,7 +42,7 @@ Table of contents
    * [PART-Seven: metaQuast](#part-seven-metaQuast)
    * [PART-Eight: bwa](#part-eight-bwa)
    * [PART-Nine: samtools](#part-nine-samtools)
-   * :money_with_wings: [PART-Ten: pilon](#part-ten-pilon)
+   * :money_with_wings: [PART-Ten: pilon](#money_with_wings-part-ten-pilon)
 <!--te-->
 
 
