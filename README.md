@@ -40,8 +40,8 @@ Table of contents
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
    * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
    * [PART-Seven: metaQuast](#part-seven-metaQuast)
-   * [PART-Eight: bwa](#part-eight-bwa)
-   * :wrench: [PART-Nine: samtools](#part-nine-samtools)
+   * :calling: [PART-Eight: bwa](#calling-part-eight-bwa)
+   * :wrench: [PART-Nine: samtools](#wrench-part-nine-samtools)
    * :money_with_wings: [PART-Ten: pilon](#money_with_wings-part-ten-pilon)
 <!--te-->
 
@@ -209,7 +209,7 @@ metaQuast/quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/s
 ```
 
 
-[PART-Eight: bwa](#part-eight-bwa)
+:calling: [PART-Eight: bwa](#part-eight-bwa)
 ====
 
 ### load modules
