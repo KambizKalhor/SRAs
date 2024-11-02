@@ -39,7 +39,10 @@ Table of contents
    * :scissors: [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
    * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
-   * 📝 [PART-Seven: metaQuast](#part-seven-metaQuast)
+   * [PART-Seven: metaQuast](#part-seven-metaQuast)
+   * [PART-Eight: bwa](#part-eight-bwa)
+   * [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
+   * [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
 <!--te-->
 
 
@@ -193,108 +196,89 @@ you should spend sometime to adjust variables above depending on input
 spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --pe1-1 $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq --pe1-2 $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq -o $output_directory/05_Spades_results/${line}/
 ```
 
-📝[PART-Seven: metaQuast](#part-seven-metaQuast)
+[PART-Seven: metaQuast](#part-seven-metaQuast)
 ====
-### make a directory for results
-```
+
+# make a directory for results
 mkdir -p $output_directory/06_metaQuast_results/${line}
-```
-### run metaQuast
-```
-quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
-```
+#run metaQuast
+metaQuast/quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/scaffolds.fasta -o $output_directory/06_metaQuast_results/${line}/
 
 
-PART-Eight: bwa
+
+:eight_pointed_black_star: [PART-Eight: bwa](#part-eight-bwa)
 ====
-### load modules
-```
+
+# load modules
 module purge
 module load gcc/11.3.0
 module load bwa/0.7.17
-```
 
-### make a directory for results and copy the scaffolds.fasta as input to that directory
-```
+# make a directory for results and copy the scaffolds.fasta as input to that directory
 mkdir -p $output_directory/07_bwa/${line}
 cp $output_directory/05_Spades_results/${line}/scaffolds.fasta $output_directory/07_bwa/${line}/scaffolds.fasta
-```
 
-### paths to scaffold and R1 and R2
-```
+# paths to scaffold and R1 and R2
 scaffold_fasta_path=$output_directory/07_bwa/${line}/scaffolds.fasta
 R1_path=$output_directory/01_fastq_dump_result/${line}/*_1.fastq
 R2_path=$output_directory/01_fastq_dump_result/${line}/*_2.fastq
-```
-### run index (make the genome accessible for alignment)
-```
+
+# run index (make the genome accessible for alignment)
 bwa index $scaffold_fasta_path
-```
-### alignment steps (run this one on original fastq files before trimming-> 01_fastq_dump_result)
-```
+
+# alignment steps (run this one on original fastq files before trimming-> 01_fastq_dump_result)
 bwa aln -n 0 -t 16 $scaffold_fasta_path $R1_path > $output_directory/07_bwa/${line}/R1.sai
 bwa aln -n 0 -t 16 $scaffold_fasta_path $R2_path > $output_directory/07_bwa/${line}/R2.sai
-```
-### make path for new outputs
-```
+
+
+# make path for new outputs
 R1_sai_path=$output_directory/07_bwa/${line}/R1.sai
 R2_sai_path=$output_directory/07_bwa/${line}/R2.sai
 # i should read about this outputs, it uses R1 and database to align them
-```
 
-### combine them
-```
-bwa sampe $scaffold_fasta_path R1_sai_path R2_sai_path R1_path R2_path > combined_R1_R2.sam
-```
+
+# combine them
+bwa sampe $scaffold_fasta_path $R1_sai_path $R2_sai_path $R1_path $R2_path > $output_directory/07_bwa/${line}/combined_R1_R2.sam
+
+
 
 PART-Nine: samtools
 ====
 
-### load modules
-```
+# load modules
 module purge
 module load gcc/9.2.0
 module load samtools/18.0.4
-```
 
-### run sotneareiodhn -> this command will produce a .fai file
-```
+
+# run sotneareiodhn -> this command will produce a .fai file
 samtools faidx $scaffold_fasta_path
-```
-### path to output of the last command
-```
+
+
+
+# path to output of the last command
 fai_output=$output_directory/07_bwa/${line}/*.fai
 sam_output=$output_directory/07_bwa/${line}/combined_R1_R2.sam
-```
-### run samtools
-```
-samtools import $fai_output $sam_output R1_R2.bam
-samtools sort R1_R2.bam -o R1_R2.sorted.bam
-samtools index R1_R2.sorted.bam
-```
 
+
+samtools import $fai_output $sam_output $output_directory/07_bwa/${line}/R1_R2.bam
+samtools sort $output_directory/07_bwa/${line}/R1_R2.bam -o $output_directory/07_bwa/${line}/R1_R2.sorted.bam
+samtools index $output_directory/07_bwa/${line}/R1_R2.sorted.bam
 
 
 PART-Ten: pilon
 ====
 
-### load modules
-```
+# load modules
 module purge
 module load gcc/8.3.0
 module load pilon/1.22
-```
 
-### make directory for pilon results
-```
+# make directory for pilon results
 mkdir -p $output_directory/08_pilon_results/${line}
-```
 
-### make a path for the input
-```
+# make a path for the input
 sorted_sam_output=$output_directory/07_bwa/${line}/R1_R2.sorted.bam
-```
-### run pilon
-```
-pilon --genome $scaffold_fasta_path --frags $sorted_sam_output --fix all,local,breaks --changes > $output_directory/08_pilon_results/${line}/pilon.log
-```
+
+# run pilon
+pilon --genome $scaffold_fasta_path --frags $sorted_sam_output --fix all,local,breaks --changes --outdir $output_directory/08_pilon_results/${line}  > $output_directory/08_pilon_results/${line}/pilon.log
