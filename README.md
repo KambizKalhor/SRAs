@@ -39,7 +39,7 @@ Table of contents
    * :scissors: [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
    * 🔍 [PART-Five: Second Quality Control](#part-five-second-quality-control)
    * 🧬 [PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
-   * :mega: [PART-Seven: metaQuast](#mega-seven-metaQuast)
+   * :mega: [PART-Seven: metaQuast](#mega-part-seven-metaquast)
    * :calling: [PART-Eight: bwa](#calling-part-eight-bwa)
    * :wrench: [PART-Nine: samtools](#wrench-part-nine-samtools)
    * :money_with_wings: [PART-Ten: pilon](#money_with_wings-part-ten-pilon)
