@@ -42,7 +42,7 @@ Table of contents
    * [PART-Seven: metaQuast](#part-seven-metaQuast)
    * [PART-Eight: bwa](#part-eight-bwa)
    * [PART-Nine: samtools](#part-nine-samtools)
-   * [PART-Ten: pilon](#part-ten-pilon)
+   * :money_with_wings: [PART-Ten: pilon](#part-ten-pilon)
 <!--te-->
 
 
@@ -277,7 +277,7 @@ samtools sort $output_directory/07_bwa/${line}/R1_R2.bam -o $output_directory/07
 samtools index $output_directory/07_bwa/${line}/R1_R2.sorted.bam
 ```
 
-[PART-Ten: pilon](#part-ten-pilon)
+:money_with_wings:[PART-Ten: pilon](#part-ten-pilon)
 ====
 
 ### load modules
