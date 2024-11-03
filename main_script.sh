@@ -218,3 +218,24 @@ sorted_sam_output=$output_directory/07_bwa/${line}/R1_R2.sorted.bam
 
 # run pilon
 pilon --genome $scaffold_fasta_path --frags $sorted_sam_output --fix all,local,breaks --changes --outdir $output_directory/08_pilon_results/${line}  > $output_directory/08_pilon_results/${line}/pilon.log
+
+
+
+
+#############################
+# PART-Eleven: CheckM2
+
+# first	activate conda environment
+# if you haven't install the CheckM2, please find installation on my github
+# also you need	to download a database before running this commands
+module purge
+eval "$(conda shell.bash hook)"
+conda activate checkm2
+
+# make a directory for CheckM2 results
+mkdir -p $output_directory/09_CheckM2_results/${line}
+
+# run CheckM2
+checkm2 predict -t $SLURM_CPUS_PER_TASK -x .fasta -i $output_directory/08_pilon_results/${line}/pilon.fasta -o $output_directory/09_CheckM2_results/${line}/
+
+
