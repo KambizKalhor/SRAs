@@ -295,6 +295,7 @@ mkdir -p $output_directory/08_pilon_results/${line}
 ```
 sorted_sam_output=$output_directory/07_bwa/${line}/R1_R2.sorted.bam
 ```
+# warning -> bam or sam in command above?
 ### run pilon
 ```
 pilon --genome $scaffold_fasta_path --frags $sorted_sam_output --fix all,local,breaks --changes --outdir $output_directory/08_pilon_results/${line}  > $output_directory/08_pilon_results/${line}/pilon.log
