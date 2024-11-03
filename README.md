@@ -298,3 +298,27 @@ sorted_sam_output=$output_directory/07_bwa/${line}/R1_R2.sorted.bam
 ```
 pilon --genome $scaffold_fasta_path --frags $sorted_sam_output --fix all,local,breaks --changes --outdir $output_directory/08_pilon_results/${line}  > $output_directory/08_pilon_results/${line}/pilon.log
 ```
+
+
+:money_with_wings: [PART-Eleven: CheckM2](#part-elevennnnstrstra)
+====
+
+### first you need to install it, the best way to do it on CARC is the following conda environment
+```
+conda create -n checkm2 -c conda-forge -c bioconda python=3.8 checkm2
+# to make sure it is installed
+checkm2 -h
+```
+please do the following steps once and don't use the discovery login node, reminder that you can use the command below to ask for a compute node
+```
+salloc --ntasks=1 --cpus-per-task=16 --time=01:00:00 --mem=128GB -p main
+```
+
+### you also need to download a database which CheckM2 uses
+```
+checkm2 database --download --path /path/to/save/database
+```
+
+
+
+
