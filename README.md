@@ -43,6 +43,7 @@ Table of contents
    * :calling: [PART-Eight: bwa](#calling-part-eight-bwa)
    * :wrench: [PART-Nine: samtools](#wrench-part-nine-samtools)
    * :money_with_wings: [PART-Ten: pilon](#money_with_wings-part-ten-pilon)
+   * :white_check_mark: [PART-Eleven: CheckM2](#money_with_wings-part-eleven-checkm2)
 <!--te-->
 
 
@@ -300,7 +301,7 @@ pilon --genome $scaffold_fasta_path --frags $sorted_sam_output --fix all,local,b
 ```
 
 
-:money_with_wings: [PART-Eleven: CheckM2](#part-elevennnnstrstra)
+:white_check_mark: [PART-Eleven: CheckM2](#money_with_wings-part-eleven-checkm2)
 ====
 
 ### first you need to install it, the best way to do it on CARC is the following conda environment
