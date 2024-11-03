@@ -305,13 +305,24 @@ pilon --genome $scaffold_fasta_path --frags $sorted_sam_output --fix all,local,b
 
 ### first you need to install it, the best way to do it on CARC is the following conda environment
 ```
+# make conda environment
 conda create -n checkm2 -c conda-forge -c bioconda python=3.8 checkm2
+
+# activate conda environment you just made
+conda activate checkm2
+
 # to make sure it is installed
 checkm2 -h
 ```
 please do the following steps once and don't use the discovery login node, reminder that you can use the command below to ask for a compute node
 ```
 salloc --ntasks=1 --cpus-per-task=16 --time=01:00:00 --mem=128GB -p main
+```
+### also if you want to run CheckM2 as bash script, you should activate conda using the following commands
+```
+module purge
+eval "$(conda shell.bash hook)"
+conda activate checkm2
 ```
 
 ### you also need to download a database which CheckM2 uses
@@ -322,8 +333,8 @@ checkm2 database --download --path /path/to/save/database
 
 ### run CheckM2
 ```
-checkm2 -t $SLURM_CPUS_PER_TASK -x input_file_type -i path/to/input.fasta -o path/to/output
+checkm2 predict -t $SLURM_CPUS_PER_TASK -x input_file_type -i path/to/input.fasta -o path/to/output
 # example
-checkm2 -t 16 -x .fasta -i pilon.fasta -o checkm2_out
+checkm2 predict -t 16 -x .fasta -i pilon.fasta -o checkm2_out
 ```
 
