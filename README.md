@@ -320,5 +320,10 @@ checkm2 database --download --path /path/to/save/database
 ```
 
 
-
+### run CheckM2
+```
+checkm2 -t $SLURM_CPUS_PER_TASK -x input_file_type -i path/to/input.fasta -o path/to/output
+# example
+checkm2 -t 16 -x .fasta -i pilon.fasta -o checkm2_out
+```
 
