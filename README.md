@@ -209,6 +209,11 @@ spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --p
 
 :mega: [PART-Seven: metaQuast](#part-seven-metaQuast)
 ====
+### first you need to download metaquast from the following website [HERE](https://quast.sourceforge.net/metaquast.html)
+### you need to unzip it using 
+```
+tar -zxvf filename.tar.gz
+```
 
 ### make a directory for results
 ```
