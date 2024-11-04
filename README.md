@@ -89,6 +89,13 @@ line=$(sed -n -e "$SLURM_ARRAY_TASK_ID p" $srr_input)
 
 🌐[PART-One: Download the SRA Files](#part-one-download-the-sra-files)
 =====
+in this step, we download the SRA files using the text file contains a list of SRR numbers.
+
+> [!NOTE]  
+> [What is SRA database?](https://en.wikipedia.org/wiki/Sequence_Read_Archive)
+> [learn more on SRA search results](READMORE/SRA_database.md)
+
+
 
 ### load needed modules
 ```
