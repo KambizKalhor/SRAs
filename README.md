@@ -93,6 +93,7 @@ in this step, we download the SRA files using the text file contains a list of S
 
 > [!NOTE]  
 > [What is SRA database?](https://en.wikipedia.org/wiki/Sequence_Read_Archive)
+>
 > [learn more on SRA search results](READMORE/SRA_database.md)
 
 
