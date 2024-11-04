@@ -46,7 +46,9 @@ Table of contents
    * :white_check_mark: [PART-Eleven: CheckM2](#white_check_mark-part-eleven-checkm2)
 <!--te-->
 
-
+Overview
+====
+![workflow](README_Figures_SRA/workflow_SRA.png)
 
 
 :hash: [Batch Job Script Header](#batch-job-script-header)
