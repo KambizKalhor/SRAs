@@ -68,7 +68,7 @@ Overview
 📥[Inputs and Array Prerequisites](#inputs-and-array-prerequisites)
 =====
 ### inputs
-in this part you get two arguments, first is the input file(example provided in this repository `[job_input_short.txt](job_input_short.txt)`) and the output argument is the directory you chosed to save all results
+in this part you get two arguments, first is the input file(example provided in this repository [job_input_short.txt](job_input_short.txt)) and the output argument is the directory you chosed to save all results
 ```
 # this is the file contains all the SRR names, srr names should be diveded by a newline(enter)
 srr_input=$1
