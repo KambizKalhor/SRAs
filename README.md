@@ -233,7 +233,7 @@ After running MetaSPAdes, you get several output files that represent different 
 - **Primary Output**: The `contigs.fasta` file is the main outcome, containing assembled sequences.
 - **Supporting Outputs**: Files like `assembly_graph.fastg` and `scaffolds.fasta` provide additional structural and linkage information.
 - **Log Files**: Files like `spades.log`, `warnings.log`, and `KmerCount.log` are critical for assessing the quality of the assembly and troubleshooting issues.
-
+- **other outputs**: `contigs.paths`, `scaffold.paths`, `dataset.info`, `first_pe_contigs.fasta`, `input_dataset.yaml`
 These outputs provide a comprehensive set of data to help analyze, evaluate, and understand the structure and quality of the assembled metagenomic sequences. in Cameron's class we used scaffold.fasta as main output to do the downstream analysis.
 
 
