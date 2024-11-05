@@ -192,8 +192,6 @@ mkdir -p $output_directory/03_trimmomatic_results/${line}/
 ```
 
 ### run trimmomatic
-here in this code the most important variables to change is `LEADING:x`, `TRAILING:x`, `SLIDINGWINDOW:x:xx` and `MINLEN:xx`
-you should spend sometime to adjust variables above depending to your input
 ```
 trimmomatic PE -threads $SLURM_CPUS_PER_TASK -phred33 -trimlog $output_directory/03_trimmomatic_results/${line}/trimlog.log $output_directory/01_fastq_dump_result/${line}/*.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_PAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_FORWARD_UNPAIRED_R1.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_PAIRED_R2.fastq $output_directory/03_trimmomatic_results/${line}/TRIMMED_REVERSE_UNPAIRED_R2.fastq LEADING:20 TRAILING:20 SLIDINGWINDOW:13:20 MINLEN:40
 ```
@@ -217,6 +215,29 @@ fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/04_second_quality_control_r
 
 🧬[PART-Six: Assembly Using metaSPAdes](#part-six-assembly-using-metaspades)
 ====
+**MetaSPAdes** is an assembly tool designed for metagenomic data, focusing on constructing genomes from mixed community DNA sequencing data.
+After running MetaSPAdes, you get several output files that represent different aspects of the assembly. Here’s an overview of the primary output files and their purposes:
+
+| Output File/Folder                | Description |
+|-----------------------------------|-------------|
+| **contigs.fasta**                 | Contains assembled contigs (continuous sequences) derived from overlapping reads. This file represents the main output and contains sequences that can be analyzed further to identify potential organisms and gene content. |
+| **scaffolds.fasta**               | Similar to `contigs.fasta`, but with additional connections between contigs based on paired-end information. Scaffolds are longer sequences that can include gaps where MetaSPAdes inferred connections between contigs. |
+| **before_rr.fasta**               | The contigs generated before repeat resolution. Repeat resolution is a step that helps in handling regions with repetitive sequences to improve contig uniqueness and accuracy. |
+| **assembly_graph.fastg**          | A graph-based representation of the assembly. Each node represents a sequence (often a contig or part of a contig), and each edge represents connections between sequences based on overlap. This file is useful for visualizing complex assembly paths, especially for highly diverse metagenomic samples. |
+| **assembly_graph_with_scaffolds.gfa** | A graph representation in **GFA** format that includes scaffolds. It provides a more comprehensive view of the assembly, with nodes and edges representing sequences and their connections, allowing for complex genome visualization and analysis. |
+| **KmerCount.log**                 | Logs the k-mer (subsequence) counts used in the assembly. This file provides details on the different k-mer sizes used and the frequency of each k-mer, helping in quality control analysis by showing how well-covered certain regions are. |
+| **params.txt**                    | Contains the parameters used in the MetaSPAdes run, providing documentation of the input settings, which is useful for reproducibility and tracking specific configuration details in the assembly. |
+| **spades.log**                    | The primary log file for the MetaSPAdes process. It records the steps and any issues encountered during assembly, which is useful for troubleshooting and tracking the assembly process. |
+| **warnings.log**                  | Lists any warnings encountered during the assembly, such as low-coverage areas or potential contaminants. This helps identify potential problems with the assembly quality. |
+
+- **Primary Output**: The `contigs.fasta` file is the main outcome, containing assembled sequences.
+- **Supporting Outputs**: Files like `assembly_graph.fastg` and `scaffolds.fasta` provide additional structural and linkage information.
+- **Log Files**: Files like `spades.log`, `warnings.log`, and `KmerCount.log` are critical for assessing the quality of the assembly and troubleshooting issues.
+
+These outputs provide a comprehensive set of data to help analyze, evaluate, and understand the structure and quality of the assembled metagenomic sequences. in Cameron's class we used scaffold.fasta as main output to do the downstream analysis.
+
+
+
 ### module load
 ```
 module load gcc/8.3.0
