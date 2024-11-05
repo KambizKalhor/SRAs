@@ -234,7 +234,8 @@ After running MetaSPAdes, you get several output files that represent different 
 - **Supporting Outputs**: Files like `assembly_graph.fastg` and `scaffolds.fasta` provide additional structural and linkage information.
 - **Log Files**: Files like `spades.log`, `warnings.log`, and `KmerCount.log` are critical for assessing the quality of the assembly and troubleshooting issues.
 - **other outputs**: `contigs.paths`, `scaffold.paths`, `dataset.info`, `first_pe_contigs.fasta`, `input_dataset.yaml`
-These outputs provide a comprehensive set of data to help analyze, evaluate, and understand the structure and quality of the assembled metagenomic sequences. in Cameron's class we used scaffold.fasta as main output to do the downstream analysis.
+- These outputs provide a comprehensive set of data to help analyze, evaluate, and understand the structure and quality of the assembled metagenomic sequences.
+- In Cameron's class we used scaffold.fasta as main output to do the downstream analysis.
 
 
 
@@ -258,6 +259,29 @@ spades.py --meta --threads $SLURM_CPUS_PER_TASK --memory $SLURM_MEM_PER_NODE --p
 
 :mega: [PART-Seven: metaQuast](#part-seven-metaQuast)
 ====
+
+**MetaQuast** is a tool designed to assess the quality of metagenomic assemblies. It provides metrics that help evaluate the accuracy, completeness, and contiguity of assembled contigs from metagenomic data. MetaQuast is an extension of **Quast** (Quality Assessment Tool for Genome Assemblies), tailored specifically for metagenomics.
+## Key Functions of MetaQuast
+- **Quality Assessment**: MetaQuast evaluates assembly quality by comparing contigs to reference genomes when available, providing metrics such as N50, misassemblies, and gene completeness.
+- **Contig Mapping and Taxonomic Classification**: It maps contigs to reference genomes or taxonomic databases, allowing you to assess how well the assembly represents each species or taxonomic group.
+- **Visualization**: Generates reports and visualizations of the assembly metrics, allowing for an easier assessment of assembly performance and quality.
+
+## Outputs of MetaQuast
+
+MetaQuast generates a comprehensive set of outputs that provide both summary statistics and detailed metrics for each assembly. Here’s an overview of the primary outputs:
+
+| Output File/Folder           | Description |
+|-------------------------------|-------------|
+| **report.txt**                | A summary report containing core assembly statistics such as N50, total length, number of contigs, GC content, and misassemblies. This file provides a quick overview of the quality metrics. |
+| **report.html**               | An HTML version of the report with additional visualization and interactivity. This file is helpful for easy viewing and sharing of results. |
+| **contigs_reports/ folder**   | Contains detailed information for each contig, including alignment information, coverage, and GC content. This is useful for examining individual contigs and their quality. |
+| **misassemblies_report.txt**  | Lists all detected misassemblies with information on where they occur in the contigs. Misassemblies indicate regions where the contig structure may be incorrect, often due to chimeric or low-quality regions. |
+| **unaligned_contigs.fasta**   | Contains contigs that could not be aligned to any reference genome or database, potentially indicating novel or poorly represented sequences. |
+| **aligned_stats.tsv**         | A table with alignment statistics for each contig, showing how well contigs align to the reference genomes or taxonomic groups. |
+| **taxonomic_profile.txt**     | Contains a summary of the taxonomic composition of the contigs based on alignment. This is useful for understanding which organisms are present in the sample and how well they are represented in the assembly. |
+| **plots/ folder**             | Contains visualizations such as length and GC content distributions, N50 graphs, and misassembly locations. These plots help visualize the quality of the assembly in a more intuitive way. |
+| **reference genome folders**  | If reference genomes are used, MetaQuast generates folders with information on how the assembled contigs compare to each reference, detailing alignment metrics and completeness. |
+
 ### first you need to download metaquast from the following website [HERE](https://quast.sourceforge.net/metaquast.html)
 ### you need to unzip it using 
 ```
@@ -276,6 +300,23 @@ metaQuast/quast-5.2.0/metaquast.py $output_directory/05_Spades_results/${line}/s
 
 :calling: [PART-Eight: bwa](#part-eight-bwa)
 ====
+# BWA (Burrows-Wheeler Aligner)
+
+**BWA (Burrows-Wheeler Aligner)** is a popular bioinformatics tool used for mapping DNA sequences against a large reference genome, such as the human genome. It aligns **short reads** (e.g., from Illumina sequencing) or **longer sequences** (e.g., from PacBio or Oxford Nanopore) to a reference genome with high efficiency and accuracy. BWA is essential in various genomic analyses, including variant calling, transcriptomics, and metagenomics.
+
+## Key Functions of BWA
+1. **Mapping of Sequencing Reads**: BWA aligns sequencing reads (in FASTQ format) to a reference genome (in FASTA format), generating alignment files in **SAM/BAM format** that can be used for downstream analyses.
+2. **Handling Short and Long Reads**: BWA has different algorithms optimized for short reads (up to ~100bp) and longer reads (up to 1 million bp), making it versatile for various sequencing platforms.
+3. **Indexing of Reference Genome**: BWA first constructs an index of the reference genome to allow for efficient alignment. This index, created with the Burrows-Wheeler Transform (BWT), reduces memory and computational requirements during alignment.
+4. **Paired-End and Single-End Alignment**: BWA supports both single-end (one direction) and paired-end (both directions) sequencing data, which is common in modern sequencing technologies.
+5. **Gapped and Ungapped Alignments**: It can handle both types, allowing for insertion-deletion (indel) detection, which is essential in analyzing regions with small structural variations.
+
+## Main Algorithms in BWA
+
+BWA consists of three primary algorithms, each suited for different types of reads:
+1. **BWA-backtrack**: Optimized for short reads up to 100bp, ideal for older Illumina data.
+2. **BWA-MEM**: The most widely used algorithm, optimized for reads of 70bp or longer, including Illumina, PacBio, and Nanopore reads. BWA-MEM is robust, accurate, and the preferred choice for most applications.
+3. **BWA-SW**: Suitable for longer reads with more complex alignment patterns, like those from Sanger sequencing or some RNA-seq data.
 
 ### load modules
 ```
@@ -300,6 +341,17 @@ R2_path=$output_directory/01_fastq_dump_result/${line}/*_2.fastq
 ```
 bwa index $scaffold_fasta_path
 ```
+The command bwa index file.fasta is used to prepare a reference genome for alignment by creating an index of the provided FASTA file (file.fasta) using the BWA (Burrows-Wheeler Aligner) tool.
+
+Indexing: This command builds an index of the reference genome, which allows BWA to quickly align sequencing reads to this reference. Indexing reduces the computational time and memory requirements when aligning reads, as it allows BWA to search the reference genome more efficiently.
+## Output
+- **Index Files**: BWA generates multiple index files based on the input reference genome. These files have specific extensions and are saved in the same directory as `file.fasta`. They include:
+  - `.amb`: Contains information about ambiguous base pairs in the reference.
+  - `.ann`: Contains information about annotations (like chromosome names and lengths).
+  - `.bwt`: The Burrows-Wheeler Transform (BWT) of the reference, enabling efficient alignment.
+  - `.pac`: Contains packed sequences of the reference, storing the genome efficiently in binary format.
+  - `.sa`: The suffix array, which speeds up searching in the BWT.
+
 
 ### alignment steps (run this one on original fastq files before trimming-> 01_fastq_dump_result)
 ```
