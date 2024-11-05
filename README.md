@@ -118,6 +118,8 @@ prefetch -p ${line} -O $output_directory/00_raw_read_from_SRA
 
 🔨[PART-Two: Fastq-dump](#part-two-fastq-dump)
 ====
+> [!TIP]
+> The fastq-dump command is a utility from the SRA Toolkit (Sequence Read Archive Toolkit) used to convert SRA files (Sequence Read Archive format) into FASTQ format. The FASTQ format is commonly used for storing sequencing reads with quality scores and is compatible with most downstream bioinformatics tools, unlike the SRA format, which is more specialized.
 ### make a directory for fastq_dump
 ```
 mkdir -p $output_directory/01_fastq_dump_result
@@ -147,6 +149,32 @@ fastqc -t $SLURM_CPUS_PER_TASK -o  $output_directory/02_first_quality_control_re
 
 :scissors: [PART-Four: Trimmomatic](#scissors-part-four-trimmomatic)
 ====
+
+**Trimmomatic** is a versatile tool used in bioinformatics for **trimming and quality filtering of sequencing reads**. we primarily apply it to **FASTQ files** obtained from last step to improve data quality before downstream analysis. The main tasks include removing low-quality bases, adapters, and unwanted sequences, and filtering out poor-quality reads.
+
+## Key Functions of Trimmomatic
+1. **Adapter Removal**: Removes adapters or other unwanted sequences introduced during the library preparation process.
+2. **Quality Trimming**: Trims bases from the ends of reads that fall below a certain quality threshold, ensuring that only high-quality sequence data is retained.
+3. **Length Filtering**: Discards reads that fall below a specified length after trimming to retain only informative reads.
+4. **Sliding Window Trimming**: Trims reads based on a sliding window approach, where the average quality in a defined window must meet a threshold.
+
+## Commonly Used Flags in Trimmomatic
+
+Here's a summary of key flags you can use in Trimmomatic:
+
+| Flag                    | Description |
+|-------------------------|-------------|
+| **PE** or **SE**        | Specifies whether the input is **paired-end** (PE) or **single-end** (SE) data. Use `PE` for paired-end reads with both forward and reverse files, and `SE` for single-end reads. |
+| **ILLUMINACLIP**        | Removes adapter sequences. Takes four parameters: the path to the adapter file, the maximum mismatch count, the palindrome clip threshold, and the simple clip threshold. <br>Example: `ILLUMINACLIP:adapters.fa:2:30:10` |
+| **LEADING**             | Trims bases from the start (5' end) of a read if they are below a specified quality threshold. <br>Example: `LEADING:20` |
+| **TRAILING**            | Trims bases from the end (3' end) of a read if they are below a specified quality threshold. <br>Example: `TRAILING:20` |
+| **SLIDINGWINDOW**       | Performs a sliding window trimming, where a window of a specified size is applied to the read, and if the average quality in that window falls below the set threshold, the read is trimmed at that point. <br>Example: `SLIDINGWINDOW:4:20` (uses a 4-base window with a quality threshold of 20) |
+| **MINLEN**              | Discards reads that fall below a specified minimum length after trimming. <br>Example: `MINLEN:36` |
+| **CROP**                | Trims reads to a specified length from the start (5' end), useful when you want to retain only the first part of a read. <br>Example: `CROP:100` (keeps only the first 100 bases of each read) |
+| **HEADCROP**            | Trims a specified number of bases from the start (5' end) of each read. <br>Example: `HEADCROP:15` (removes the first 15 bases of each read) |
+| **AVGQUAL**             | Discards reads with an average quality below a specified threshold, ensuring overall read quality. <br>Example: `AVGQUAL:30` |
+
+
 ### first load the required modules
 ```
 module load gcc/11.3.0
