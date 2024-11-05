@@ -358,6 +358,15 @@ Indexing: This command builds an index of the reference genome, which allows BWA
 bwa aln -n 0 -t 16 $scaffold_fasta_path $R1_path > $output_directory/07_bwa/${line}/R1.sai
 bwa aln -n 0 -t 16 $scaffold_fasta_path $R2_path > $output_directory/07_bwa/${line}/R2.sai
 ```
+The purpose of this command is to **align reads from a sequencing file** (`$R1_path`) to a **reference genome or scaffold** (`$scaffold_fasta_path`) and save the output in an alignment file (`$output`). It uses the following specific options:
+
+- **`-n 0`**: Sets the maximum number of mismatches allowed in the alignment to zero. This means the tool will only output perfect matches between the read and reference. Using `-n 0` is stringent and is typically used for high-confidence alignments or in cases where exact matching is critical.
+  
+- **`-t 16`**: Specifies the number of **threads** to use, set to 16 in this case. This allows BWA to use parallel processing, making alignment faster by utilizing multiple CPU cores.
+
+## Output
+- **Output File (`R1.sai or R2.sai`)**: This command creates a **SAI (Suffix Array Index) file**. The SAI file is an intermediate file format that contains information about the alignment of each read to the reference. It does not directly contain the final alignment in SAM or BAM format. Instead, it needs to be converted to SAM format using `bwa samse` (for single-end data) or `bwa sampe` (for paired-end data).
+
 
 ### make path for new outputs
 ```
@@ -369,6 +378,17 @@ R2_sai_path=$output_directory/07_bwa/${line}/R2.sai
 ```
 bwa sampe $scaffold_fasta_path $R1_sai_path $R2_sai_path $R1_path $R2_path > $output_directory/07_bwa/${line}/combined_R1_R2.sam
 ```
+This command merges alignment information from two sequencing files (one for each read direction) into a single SAM file. The SAM file includes information about how each read aligns to the reference genome, taking into account the pairing information, which is important for accurate alignment of paired-end reads.
+
+## Output
+
+- **SAM File (`combined_R1_R2.sam`)**: The output of this command is a **SAM (Sequence Alignment/Map) file**, which contains the final paired-end alignments. The SAM file provides detailed information for each read pair, including:
+  - The reference sequence name and position to which each read aligns.
+  - Mapping quality scores.
+  - Flags indicating pairing information, such as whether the read is the first or second in the pair, if it’s aligned to the forward or reverse strand, and other pairing details.
+  - Additional alignment attributes such as CIGAR strings (describing matches, insertions, deletions), edit distances, and alignment confidence.
+
+
 
 :wrench: [PART-Nine: samtools](#part-nine-samtools)
 ====
