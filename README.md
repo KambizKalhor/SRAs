@@ -500,5 +500,28 @@ conda activate my_dram_env
 conda install pip3
 pip3 install ./
 ```
-
+don't forget that if you want to do the steps above, you need to have a interactive mode.
 You have now installed DRAM, and are ready to set up the databases.
+
+### Downloading the DataBase
+use the script below to download database
+```
+#!/bin/bash
+#SBATCH --account=asteen_1130
+#SBATCH --partition=main
+#SBATCH --cpus-per-task=16
+#SBATCH --mem=128G
+#SBATCH --nodes=2
+#SBATCH --time=20:00:00
+
+
+module purge
+eval "$(conda shell.bash hook)"
+conda activate my_dram_env
+
+
+cd path/to/save/DRAM_data
+DRAM-setup.py prepare_databases --output_dir path/to/save/DRAM_data
+```
+
+
