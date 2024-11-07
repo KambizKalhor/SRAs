@@ -476,3 +476,31 @@ checkm2 predict -t $SLURM_CPUS_PER_TASK -x input_file_type -i path/to/input.fast
 checkm2 predict -t 16 -x .fasta -i pilon.fasta -o checkm2_out
 ```
 
+:money_with_wings: [PART-Twelve: DRAM](#pstrstarst)
+====
+
+DRAM (Distilled and Refined Annotation of Metabolism) is a tool for annotating metagenomic assembled genomes and VirSorter identified viral contigs. DRAM annotates MAGs and viral contigs using KEGG (if provided by the user), UniRef90, PFAM, dbCAN, RefSeq viral, VOGDB and the MEROPS peptidase database as well as custom user databases. DRAM is run in two stages. First an annotation step to assign database identifiers to gene, and then a distill step to curate these annotations into useful functional categories. Additionally, viral contigs are further analyzed during to identify potential AMGs. This is done via assigning an auxiliary score and flags representing the confidence that a gene is both metabolic and viral.
+
+For more detail on DRAM and how DRAM works please see our paper as well as the wiki.
+
+For information on how DRAM is changing, please read the most recent release notes.
+
+### Installation on CARC
+While there are several installation methods available, this is the one that worked best for me.
+#### Release Candidate Installation
+The latest version of DRAM is often a release candidate, and these are not pushed to pypi, or Bioconda and so can't be installed with the methods above. You can tell if there is currently a release candidate by reading the release notes.
+
+To install a potentially unstable release candidate, follow the instructions below. Note the comments within the code sections as there is a context in which commands must be used.
+```
+# Clone the git repository and move into it
+git clone https://github.com/WrightonLabCSU/DRAM.git
+cd DRAM
+# Install dependencies, this will also install a stable version of DRAM that will then be replaced.
+conda env create --name my_dram_env -f environment.yaml
+conda activate my_dram_env
+# Install pip
+conda install pip3
+pip3 install ./
+```
+
+You have now installed DRAM, and are ready to set up the databases.
